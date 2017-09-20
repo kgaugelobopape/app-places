@@ -88,6 +88,13 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyB2LSmA2_o3nF-2vqolKqyKvpWf3PwLxOI" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyB2LSmA2_o3nF-2vqolKqyKvpWf3PwLxOI" />
     </plugin>
+    <plugin name="cordova-plugin-ionic" spec="^1.1.9">
+        <variable name="APP_ID" value="82a5e836" />
+        <variable name="CHANNEL_NAME" value="Master" />
+        <variable name="UPDATE_METHOD" value="background" />
+        <variable name="UPDATE_API" value="https://api.ionicjs.com" />
+        <variable name="MAX_STORE" value="2" />
+    </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
