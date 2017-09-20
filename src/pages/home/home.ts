@@ -53,7 +53,7 @@ export class HomePage {
   }
 
   moveCamera(loc: LatLng) {
-    let options: CameraPosition<any> = {
+    let options: CameraPosition = {
       target: loc,
       zoom: 15,
       tilt: 10
