@@ -1,16 +1,16 @@
 import {
-GoogleMaps,
-GoogleMap,
-GoogleMapsEvent,
-CameraPosition,
-MarkerOptions,
-Marker,
-LatLng
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  LatLng
 } from '@ionic-native/google-maps';
-import {NavController, Platform} from 'ionic-angular';
+import {AlertController, NavController, Platform} from 'ionic-angular';
 import {Component, ElementRef, ViewChild} from '@angular/core/';
 import {mapStyle} from './mapStyle';
-import {Geolocation} from "@ionic-native/geolocation";
+import {Geolocation} from '@ionic-native/geolocation';
 
 @Component({
   selector: 'page-home',
@@ -20,7 +20,7 @@ export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map: GoogleMap;
 
-  constructor(public navCtrl: NavController, private _googleMaps: GoogleMaps, platform: Platform, private geoLocation: Geolocation) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private _googleMaps: GoogleMaps, platform: Platform, private geoLocation: Geolocation) {
     platform.ready().then(() => {
       this.initMap();
     });
@@ -42,15 +42,19 @@ export class HomePage {
         loc = new LatLng(position.coords.latitude, position.coords.longitude);
         this.moveCamera(loc);
         this.setOptions();
-        this.createMarker(loc, 'My Location').then((marker: Marker) => {
-          marker.showInfoWindow();
-        }).catch((err) => {
-          console.log(err);
-        });
       }).catch((err) => {
-        console.log(err);
+        this.showAlert(err);
       });
     });
+  }
+
+  showAlert(error) {
+    let alert = this.alertCtrl.create({
+      title: 'New Friend!',
+      subTitle: 'Your friend, Obi wan Kenobi, just accepted your friend request!',
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   moveCamera(loc: LatLng) {
@@ -69,7 +73,7 @@ export class HomePage {
   }
 
   createMarker(loc: LatLng, title: string) {
-    let markerOptions : MarkerOptions = {
+    let markerOptions: MarkerOptions = {
       position: loc,
       title: title,
       animation: 'DROP'
