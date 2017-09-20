@@ -1,14 +1,14 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {NavController, Platform} from 'ionic-angular';
 import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  CameraPosition,
-  MarkerOptions,
-  Marker,
-  LatLng
+GoogleMaps,
+GoogleMap,
+GoogleMapsEvent,
+CameraPosition,
+MarkerOptions,
+Marker,
+LatLng
 } from '@ionic-native/google-maps';
+import {NavController, Platform} from 'ionic-angular';
+import {Component, ElementRef, ViewChild} from '@angular/core/';
 import {mapStyle} from './mapStyle';
 import {Geolocation} from "@ionic-native/geolocation";
 
@@ -41,11 +41,12 @@ export class HomePage {
       this.getCurrentLocation().then((position) => {
         loc = new LatLng(position.coords.latitude, position.coords.longitude);
         this.moveCamera(loc);
+        this.setOptions();
         this.createMarker(loc, 'My Location').then((marker: Marker) => {
-          marker.showInfoWindow()
+          marker.showInfoWindow();
         }).catch((err) => {
           console.log(err);
-        })
+        });
       }).catch((err) => {
         console.log(err);
       });
@@ -70,7 +71,8 @@ export class HomePage {
   createMarker(loc: LatLng, title: string) {
     let markerOptions : MarkerOptions = {
       position: loc,
-      title: title
+      title: title,
+      animation: 'DROP'
     };
 
     return this.map.addMarker(markerOptions);
@@ -78,5 +80,16 @@ export class HomePage {
 
   getCurrentLocation() {
     return this.geoLocation.getCurrentPosition();
+  }
+
+  setOptions() {
+    this.map.setOptions({
+      'controls': {
+        'compass': true,
+        'myLocationButton': true,
+        'indoorPicker': false,
+        'mapToolbar': true
+      }
+    });
   }
 }
