@@ -3,7 +3,7 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://10.133.177.52:8101" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -44,6 +44,12 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+        <access origin="http://google.com" />
+        <access origin="https://google.com" />
+        <access origin="http://maps.google.com" />
+        <access origin="http://*.google.com" />
+        <access origin="content:///*" />
+        <access origin="*" />
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -79,6 +85,8 @@
     </platform>
     <allow-navigation href="http://172.20.10.7:8101" />
     <allow-navigation href="http://172.20.10.7:8100" />
+    <allow-navigation href="http://192.168.8.108:8100" />
+    <allow-navigation href="http://10.133.177.52:8101" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
@@ -88,7 +96,7 @@
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
     </plugin>
-    <plugin name="cordova-plugin-googlemaps" spec="git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git#multiple_maps">
+    <plugin name="cordova-plugin-googlemaps" spec="git+https://github.com/mapsplugin/cordova-plugin-googlemaps.git">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyB2LSmA2_o3nF-2vqolKqyKvpWf3PwLxOI" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyB2LSmA2_o3nF-2vqolKqyKvpWf3PwLxOI" />
     </plugin>

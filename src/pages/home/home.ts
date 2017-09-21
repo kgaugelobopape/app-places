@@ -1,15 +1,15 @@
+import {AlertController, NavController} from 'ionic-angular';
+import {Component} from '@angular/core/';
+import {mapStyle} from './mapStyle';
 import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
   CameraPosition,
-  MarkerOptions,
   Marker,
+  MarkerOptions,
   LatLng
 } from '@ionic-native/google-maps';
-import {AlertController, NavController, Platform} from 'ionic-angular';
-import {Component, ElementRef, ViewChild} from '@angular/core/';
-import {mapStyle} from './mapStyle';
 import {Geolocation} from '@ionic-native/geolocation';
 
 @Component({
@@ -17,17 +17,17 @@ import {Geolocation} from '@ionic-native/geolocation';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  @ViewChild('map') mapElement: ElementRef;
   map: GoogleMap;
 
-  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private _googleMaps: GoogleMaps, platform: Platform, private geoLocation: Geolocation) {
-    platform.ready().then(() => {
-      this.initMap();
-    });
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController, private _googleMaps: GoogleMaps, private geoLocation: Geolocation) {
+  }
+
+  ngAfterViewInit() {
+    this.initMap();
   }
 
   initMap() {
-    let element = this.mapElement.nativeElement;
+    let element = document.getElementById('map');
     let loc: LatLng = new LatLng(40.7128, -74.0059);
     let style = [];
 
@@ -42,6 +42,9 @@ export class HomePage {
         loc = new LatLng(position.coords.latitude, position.coords.longitude);
         this.moveCamera(loc);
         this.setOptions();
+        this.createMarker(loc, 'Current Location').then((marker: Marker) => {
+          marker.showInfoWindow();
+        });
       }).catch((err) => {
         this.showAlert(err);
       });
@@ -60,7 +63,7 @@ export class HomePage {
   moveCamera(loc: LatLng) {
     let options: CameraPosition<any> = {
       target: loc,
-      zoom: 15,
+      zoom: 16,
       tilt: 10
     };
 
